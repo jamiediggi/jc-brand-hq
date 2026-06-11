@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#1A4081" />
+<title>JC Brand HQ</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@500;600;700;800;900&family=Figtree:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream: #FBF5EA; --navy: #1A4081; --navy-deep: #14336A;
+    --orange: #E4623E; --teal: #43BCCD; --yellow: #F9C80E;
+    --ink: #21304D; --muted: #5E6A82; --white: #fff;
+    --green: #3FA66A; --red: #D64545;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    background: var(--cream); color: var(--ink);
+    font-family: "Figtree", sans-serif; font-size: 16px; line-height: 1.5;
+    padding-bottom: 90px;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image: radial-gradient(rgba(26,64,129,0.06) 1.5px, transparent 1.5px);
+    background-size: 26px 26px;
+  }
+  .display { font-family: "Gabarito", sans-serif; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 1; }
+
+  /* ---------- header ---------- */
+  header { background: var(--navy); color: #fff; padding: 16px 0; border-bottom: 3px solid var(--navy-deep); position: relative; z-index: 1; }
+  .head-inner { display: flex; align-items: center; justify-content: space-between; max-width: 760px; margin: 0 auto; padding: 0 16px; }
+  .logo { font-family: "Gabarito", sans-serif; font-weight: 800; font-size: 1.25rem; }
+  .logo span { color: var(--orange); }
+  .head-date { font-size: 0.8rem; color: rgba(255,255,255,0.7); font-weight: 600; }
+
+  /* ---------- chunky bits ---------- */
+  .card {
+    background: #fff; border: 2px solid var(--navy); border-radius: 16px;
+    box-shadow: 4px 4px 0 var(--navy); padding: 18px; margin-bottom: 16px;
+  }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font-family: "Gabarito", sans-serif; font-weight: 700; font-size: 0.95rem;
+    background: var(--orange); color: #fff; border: 2px solid var(--navy);
+    border-radius: 12px; padding: 10px 18px; cursor: pointer;
+    box-shadow: 3px 3px 0 var(--navy);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    text-decoration: none; user-select: none;
+  }
+  .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--navy); }
+  .btn--navy { background: var(--navy); }
+  .btn--white { background: #fff; color: var(--navy); }
+  .btn--sm { padding: 6px 12px; font-size: 0.8rem; border-radius: 10px; box-shadow: 2px 2px 0 var(--navy); }
+  .btn--ghost { background: transparent; border: none; box-shadow: none; color: var(--muted); padding: 6px; font-size: 1rem; }
+  .btn--ghost:active { transform: none; }
+
+  h2.section-title {
+    font-family: "Gabarito", sans-serif; font-weight: 800; font-size: 1.35rem;
+    color: var(--navy); margin: 22px 0 12px; display: flex; align-items: center; gap: 10px;
+  }
+  .chip {
+    display: inline-block; font-family: "Gabarito", sans-serif; font-weight: 700; font-size: 0.68rem;
+    border: 2px solid var(--navy); border-radius: 999px; padding: 2px 10px;
+    background: var(--yellow); color: var(--navy); text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .chip--teal { background: var(--teal); color: #fff; }
+  .chip--orange { background: var(--orange); color: #fff; }
+  .chip--white { background: #fff; }
+  .chip--green { background: var(--green); color: #fff; }
+
+  input[type="text"], input[type="number"], select, textarea {
+    font-family: "Figtree", sans-serif; font-size: 16px; color: var(--ink);
+    background: var(--cream); border: 2px solid var(--navy); border-radius: 10px;
+    padding: 10px 12px; width: 100%; outline: none;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--orange); }
+
+  /* ---------- nav tabs ---------- */
+  nav.tabs {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+    background: #fff; border-top: 3px solid var(--navy);
+    display: flex; justify-content: space-around; padding: 8px 4px calc(8px + env(safe-area-inset-bottom));
+  }
+  .tab {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    font-family: "Gabarito", sans-serif; font-weight: 700; font-size: 0.68rem;
+    color: var(--muted); background: none; border: none; cursor: pointer;
+    padding: 4px 10px; border-radius: 10px; min-width: 58px;
+  }
+  .tab .ico { font-size: 1.3rem; line-height: 1; }
+  .tab.active { color: var(--navy); background: var(--cream); border: 2px solid var(--navy); box-shadow: 2px 2px 0 var(--navy); }
+
+  .view { display: none; padding-top: 16px; }
+  .view.active { display: block; }
+
+  /* ---------- TODAY ---------- */
+  .focus-card { background: var(--navy); color: #fff; border-color: var(--navy-deep); box-shadow: 4px 4px 0 var(--orange); }
+  .focus-card .label { font-family: "Gabarito", sans-serif; font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--orange); margin-bottom: 6px; }
+  .focus-card .focus-text { font-family: "Gabarito", sans-serif; font-weight: 800; font-size: 1.3rem; line-height: 1.25; }
+  .focus-card .focus-sub { color: rgba(255,255,255,0.65); font-size: 0.85rem; margin-top: 6px; }
+  .focus-card .btn { margin-top: 14px; }
+
+  .habit {
+    display: flex; align-items: center; gap: 12px; padding: 12px 0;
+    border-bottom: 2px dashed rgba(26,64,129,0.15); cursor: pointer; user-select: none;
+  }
+  .habit:last-child { border-bottom: none; }
+  .habit .box {
+    flex-shrink: 0; width: 32px; height: 32px; border: 2px solid var(--navy); border-radius: 9px;
+    background: var(--cream); display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; transition: background 0.15s ease;
+  }
+  .habit.done .box { background: var(--green); border-color: var(--navy); }
+  .habit .h-name { font-weight: 600; flex: 1; }
+  .habit.done .h-name { text-decoration: line-through; color: var(--muted); }
+  .habit .h-time { font-size: 0.75rem; color: var(--muted); font-weight: 600; }
+  .streak-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .streak { font-family: "Gabarito", sans-serif; font-weight: 800; color: var(--orange); font-size: 1rem; }
+
+  .quick-capture { display: flex; gap: 10px; }
+  .quick-capture input { flex: 1; }
+
+  .num-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .num-cell { background: var(--cream); border: 2px solid var(--navy); border-radius: 12px; padding: 12px; text-align: center; }
+  .num-cell .nv { font-family: "Gabarito", sans-serif; font-weight: 900; font-size: 1.7rem; color: var(--navy); }
+  .num-cell .nl { font-size: 0.7rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .num-cell .nt { font-size: 0.68rem; color: var(--muted); }
+  .num-cell button { margin-top: 6px; }
+
+  /* ---------- list items ---------- */
+  .item {
+    display: flex; align-items: flex-start; gap: 10px; padding: 12px 0;
+    border-bottom: 2px dashed rgba(26,64,129,0.15);
+  }
+  .item:last-child { border-bottom: none; }
+  .item .i-main { flex: 1; min-width: 0; }
+  .item .i-title { font-weight: 600; word-wrap: break-word; }
+  .item.done .i-title { text-decoration: line-through; color: var(--muted); }
+  .item .i-meta { display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap; align-items: center; }
+  .item .i-actions { display: flex; gap: 4px; flex-shrink: 0; align-items: center; }
+  .check {
+    flex-shrink: 0; width: 28px; height: 28px; border: 2px solid var(--navy); border-radius: 8px;
+    background: var(--cream); cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 0.95rem; margin-top: 2px;
+  }
+  .item.done .check { background: var(--green); }
+  .empty { text-align: center; color: var(--muted); font-size: 0.9rem; padding: 18px 6px; font-style: italic; }
+
+  .add-row { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .add-row input[type="text"] { flex: 2; min-width: 150px; }
+  .add-row select { flex: 1; min-width: 110px; width: auto; }
+
+  .filter-row { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .pill-btn {
+    font-family: "Gabarito", sans-serif; font-weight: 700; font-size: 0.78rem;
+    border: 2px solid var(--navy); border-radius: 999px; padding: 5px 14px;
+    background: #fff; color: var(--navy); cursor: pointer;
+  }
+  .pill-btn.active { background: var(--navy); color: #fff; }
+
+  .stage-move { font-size: 0.78rem; font-weight: 700; }
+
+  .toast {
+    position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--navy); color: #fff; font-family: "Gabarito", sans-serif; font-weight: 700;
+    padding: 10px 22px; border-radius: 12px; border: 2px solid var(--navy-deep);
+    box-shadow: 3px 3px 0 var(--orange); opacity: 0; transition: all 0.25s ease; z-index: 100;
+    pointer-events: none; font-size: 0.9rem; max-width: 90vw; text-align: center;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .data-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .small-note { font-size: 0.75rem; color: var(--muted); margin-top: 8px; }
+
+  @media (min-width: 700px) {
+    body { font-size: 17px; }
+    .num-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-inner">
+    <div class="logo">JC Brand <span>HQ</span></div>
+    <div class="head-date" id="headDate"></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ==================== TODAY ==================== -->
+  <section id="view-today" class="view active">
+
+    <h2 class="section-title" style="margin-top:18px;">🎯 Do this next</h2>
+    <div class="card focus-card" id="focusCard"></div>
+
+    <h2 class="section-title">🔁 Daily non-negotiables <span class="streak" id="streakLabel"></span></h2>
+    <div class="card" id="habitCard"></div>
+
+    <h2 class="section-title">🧠 Brain dump</h2>
+    <div class="card">
+      <div class="quick-capture">
+        <input type="text" id="captureInput" placeholder="Get it out of your head..." />
+        <button class="btn" onclick="capture()">Dump it</button>
+      </div>
+      <p class="small-note">Goes straight to the task inbox. Thought captured, focus kept.</p>
+    </div>
+
+    <h2 class="section-title">📊 This week's numbers</h2>
+    <div class="card">
+      <div class="num-grid" id="numGrid"></div>
+      <p class="small-note">The only four numbers that matter. Reviews drive calls, calls drive sales.</p>
+    </div>
+  </section>
+
+  <!-- ==================== TASKS ==================== -->
+  <section id="view-tasks" class="view">
+    <h2 class="section-title">✅ Tasks</h2>
+    <div class="filter-row" id="taskFilters"></div>
+    <div class="card"><div id="taskList"></div>
+      <div class="add-row">
+        <input type="text" id="taskInput" placeholder="New task..." />
+        <select id="taskBucket"><option value="today">Today</option><option value="inbox">Inbox</option><option value="later">Later</option></select>
+        <button class="btn btn--navy" onclick="addTask()">Add</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTENT ==================== -->
+  <section id="view-content" class="view">
+    <h2 class="section-title">📝 Content pipeline</h2>
+    <div class="filter-row" id="contentFilters"></div>
+    <div class="card"><div id="contentList"></div>
+      <div class="add-row">
+        <input type="text" id="contentInput" placeholder="New content idea..." />
+        <select id="contentType"><option>Memo</option><option>Blog</option><option>Social</option><option>Lead Magnet</option></select>
+        <button class="btn btn--navy" onclick="addContent()">Add</button>
+      </div>
+      <p class="small-note">Idea → Drafted → Scheduled → Published. Tap the arrow to move it along.</p>
+    </div>
+  </section>
+
+  <!-- ==================== LEADS ==================== -->
+  <section id="view-leads" class="view">
+    <h2 class="section-title">🤝 Leads</h2>
+    <div class="card" id="leadSummary"></div>
+    <div class="card"><div id="leadList"></div>
+      <div class="add-row">
+        <input type="text" id="leadInput" placeholder="Name / business..." />
+        <button class="btn btn--navy" onclick="addLead()">Add</button>
+      </div>
+      <p class="small-note">Mirrors the GHL pipeline. Every review request goes in the same day - nothing lives in your head.</p>
+    </div>
+  </section>
+
+  <!-- ==================== MORE ==================== -->
+  <section id="view-more" class="view">
+    <h2 class="section-title">⚡ Quick links</h2>
+    <div class="card" style="display:flex; flex-wrap:wrap; gap:10px;">
+      <a class="btn btn--white" href="https://jamieclarke.online" target="_blank">🌐 Website</a>
+      <a class="btn btn--white" href="https://marketingmemo.substack.com/publish" target="_blank">📬 Substack</a>
+      <a class="btn btn--white" href="https://yourwebreview.com" target="_blank">🎥 Web Review</a>
+      <a class="btn btn--white" href="https://www.linkedin.com/in/jamiepclarke/" target="_blank">💼 LinkedIn</a>
+      <a class="btn btn--white" href="https://www.skool.com/the-marketing-portal" target="_blank">🏘️ Skool</a>
+      <a class="btn btn--white" href="https://app.gohighlevel.com" target="_blank">⚙️ GHL</a>
+    </div>
+
+    <h2 class="section-title">💾 Your data</h2>
+    <div class="card">
+      <p style="font-size:0.9rem; color:var(--muted);">Data lives in this browser (localStorage). It does NOT sync between your phone and computer yet - use export/import to move it, and export weekly as a backup.</p>
+      <div class="data-row">
+        <button class="btn btn--navy btn--sm" onclick="exportData()">Export JSON</button>
+        <button class="btn btn--white btn--sm" onclick="document.getElementById('importFile').click()">Import JSON</button>
+        <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)" />
+        <button class="btn btn--white btn--sm" onclick="resetWeek()">Reset weekly numbers</button>
+      </div>
+    </div>
+
+    <h2 class="section-title">🧭 The rules (when the ADHD brain wanders)</h2>
+    <div class="card" style="font-size:0.92rem;">
+      <p style="margin-bottom:8px;">1. The four daily non-negotiables happen before anything shiny. 90 minutes, that's the floor.</p>
+      <p style="margin-bottom:8px;">2. New ideas go in the brain dump, not into action. Review them Friday.</p>
+      <p style="margin-bottom:8px;">3. No new offers, brands or domains until £10k/month happens twice.</p>
+      <p style="margin-bottom:8px;">4. If reviews happen, calls happen. If calls happen, sales happen. Do the reviews.</p>
+      <p>5. Version one beats version none. Ship it, then improve it.</p>
+    </div>
+  </section>
+
+</div>
+
+<nav class="tabs">
+  <button class="tab active" data-view="today"><span class="ico">☀️</span>Today</button>
+  <button class="tab" data-view="tasks"><span class="ico">✅</span>Tasks</button>
+  <button class="tab" data-view="content"><span class="ico">📝</span>Content</button>
+  <button class="tab" data-view="leads"><span class="ico">🤝</span>Leads</button>
+  <button class="tab" data-view="more"><span class="ico">⚡</span>More</button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ==================== STATE ====================
+const KEY = "jc-brand-hq-v1";
+const todayStr = () => new Date().toISOString().slice(0, 10);
+
+const DEFAULT = {
+  habits: [
+    { id: "memo", name: "Write & schedule today's Memo", time: "20 min" },
+    { id: "linkedin", name: "Post on LinkedIn", time: "20 min" },
+    { id: "engage", name: "Engage: comments, DMs, replies", time: "15 min" },
+    { id: "review", name: "Record 1 web review", time: "30 min" },
+  ],
+  habitLog: {},            // { "2026-06-12": ["memo","linkedin"] }
+  tasks: [
+    { id: 1, title: "Read MM#57-60 drafts, tweak, schedule in Substack", bucket: "today", done: false },
+    { id: 2, title: "Schedule relaunch social posts (in social-writer folder)", bucket: "today", done: false },
+    { id: 3, title: "Fill in [CONFIRM] gaps in 3 case study drafts", bucket: "today", done: false },
+    { id: 4, title: "Decide: are Bright Spark / Pennine / Summit case studies real or placeholders?", bucket: "today", done: false },
+    { id: 5, title: "Message past website clients - Portal OS pitch (£97/month)", bucket: "inbox", done: false },
+    { id: 6, title: "Set up own GHL sub-account (see 04 - GHL SETUP SPEC)", bucket: "inbox", done: false },
+    { id: 7, title: "Fix noindex on yourwebreview.com", bucket: "inbox", done: false },
+    { id: 8, title: "Send 10 web review offers to warm LinkedIn connections", bucket: "inbox", done: false },
+    { id: 9, title: "Domain redirects: makemarketingeasier, theperfectcustomerjourney, themarketingportal.com", bucket: "later", done: false },
+    { id: 10, title: "Skool cleanup afternoon (one pass, then leave it)", bucket: "later", done: false },
+    { id: 11, title: "Decide hero line (symptom-first version vs current)", bucket: "inbox", done: false },
+  ],
+  content: [
+    { id: 1, title: "MM#57 - I went quiet. Here's what it taught me", type: "Memo", stage: 1 },
+    { id: 2, title: "MM#58 - I put all my prices on my website", type: "Memo", stage: 1 },
+    { id: 3, title: "MM#59 - You can't read the label from inside the jar", type: "Memo", stage: 1 },
+    { id: 4, title: "MM#60 - The 15-minute website audit", type: "Memo", stage: 1 },
+    { id: 5, title: "Relaunch week socials x4 (LinkedIn + FB)", type: "Social", stage: 1 },
+    { id: 6, title: "The 15-Minute Website Audit (lead magnet PDF)", type: "Lead Magnet", stage: 1 },
+    { id: 7, title: "Blog: publish next book-chapter post (15+ ready in folder)", type: "Blog", stage: 0 },
+  ],
+  leads: [],
+  numbers: { reviews: 0, calls: 0, mrr: 1000, invoiced: 0 },
+  weekStart: todayStr(),
+};
+
+const CONTENT_STAGES = ["Idea", "Drafted", "Scheduled", "Published"];
+const LEAD_STAGES = ["Review Requested", "Review Sent", "Call Booked", "Blueprint", "Proposal", "Won 🎉", "Not Now"];
+
+let S = load();
+function load() {
+  try { const d = JSON.parse(localStorage.getItem(KEY)); if (d && d.habits) return d; } catch (e) {}
+  return JSON.parse(JSON.stringify(DEFAULT));
+}
+function save() { localStorage.setItem(KEY, JSON.stringify(S)); }
+function toast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(t._tm); t._tm = setTimeout(() => t.classList.remove("show"), 1800);
+}
+
+// ==================== NAV ====================
+document.querySelectorAll(".tab").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("view-" + btn.dataset.view).classList.add("active");
+    window.scrollTo(0, 0);
+  });
+});
+
+// ==================== TODAY ====================
+const cheers = ["Nice one 💪", "That's the way!", "Boom 💥", "One bridge at a time 🌉", "Keep it rolling!", "Buzzing with that ⚡"];
+function renderToday() {
+  document.getElementById("headDate").textContent = new Date().toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
+
+  // Focus card: first undone habit, else first today-task, else celebrate
+  const doneToday = S.habitLog[todayStr()] || [];
+  const nextHabit = S.habits.find(h => !doneToday.includes(h.id));
+  const nextTask = S.tasks.find(t => t.bucket === "today" && !t.done);
+  const fc = document.getElementById("focusCard");
+  if (nextHabit) {
+    fc.innerHTML = `<div class="label">Next non-negotiable</div>
+      <div class="focus-text">${esc(nextHabit.name)}</div>
+      <div class="focus-sub">${nextHabit.time} - do this before anything shiny.</div>
+      <button class="btn" onclick="toggleHabit('${nextHabit.id}')">Done ✓</button>`;
+  } else if (nextTask) {
+    fc.innerHTML = `<div class="label">Non-negotiables done 🎉 Next task:</div>
+      <div class="focus-text">${esc(nextTask.title)}</div>
+      <button class="btn" onclick="toggleTask(${nextTask.id}); renderToday();">Done ✓</button>`;
+  } else {
+    fc.innerHTML = `<div class="label">All clear</div>
+      <div class="focus-text">Everything's done. Go play golf ⛳</div>
+      <div class="focus-sub">Or dump tomorrow's thoughts in the brain dump and switch off properly.</div>`;
+  }
+
+  // Habits
+  const hc = document.getElementById("habitCard");
+  hc.innerHTML = S.habits.map(h => {
+    const done = doneToday.includes(h.id);
+    return `<div class="habit ${done ? "done" : ""}" onclick="toggleHabit('${h.id}')">
+      <div class="box">${done ? "✓" : ""}</div>
+      <div class="h-name">${esc(h.name)}</div>
+      <div class="h-time">${h.time}</div>
+    </div>`;
+  }).join("");
+
+  // Streak: consecutive days (incl. today if complete) where all 4 done
+  let streak = 0; const d = new Date();
+  if ((S.habitLog[todayStr()] || []).length < S.habits.length) d.setDate(d.getDate() - 1);
+  while (true) {
+    const key = d.toISOString().slice(0, 10);
+    if ((S.habitLog[key] || []).length >= S.habits.length) { streak++; d.setDate(d.getDate() - 1); }
+    else break;
+  }
+  document.getElementById("streakLabel").textContent = streak > 0 ? `🔥 ${streak} day streak` : "";
+
+  // Numbers
+  const N = S.numbers;
+  const defs = [
+    ["reviews", "Reviews", "target 5/wk"], ["calls", "Calls", "target 2-4/wk"],
+    ["mrr", "MRR £", "the floor"], ["invoiced", "Invoiced £", "this month"],
+  ];
+  document.getElementById("numGrid").innerHTML = defs.map(([k, l, t]) => `
+    <div class="num-cell">
+      <div class="nv">${k === "mrr" || k === "invoiced" ? "£" + N[k].toLocaleString() : N[k]}</div>
+      <div class="nl">${l}</div><div class="nt">${t}</div>
+      <button class="btn btn--white btn--sm" onclick="bumpNum('${k}')">+ </button>
+    </div>`).join("");
+}
+function toggleHabit(id) {
+  const key = todayStr();
+  S.habitLog[key] = S.habitLog[key] || [];
+  const i = S.habitLog[key].indexOf(id);
+  if (i >= 0) S.habitLog[key].splice(i, 1);
+  else { S.habitLog[key].push(id); toast(cheers[Math.floor(Math.random() * cheers.length)]); }
+  save(); renderToday();
+}
+function bumpNum(k) {
+  if (k === "mrr" || k === "invoiced") {
+    const v = prompt(k === "mrr" ? "New MRR total (£):" : "Add invoiced amount (£):", "");
+    if (v === null || v === "" || isNaN(+v)) return;
+    if (k === "mrr") S.numbers[k] = +v; else S.numbers[k] += +v;
+  } else S.numbers[k]++;
+  save(); renderToday(); toast("Logged 📊");
+}
+function resetWeek() {
+  if (!confirm("Reset reviews, calls and invoiced to 0? (MRR stays)")) return;
+  S.numbers.reviews = 0; S.numbers.calls = 0; S.numbers.invoiced = 0; S.weekStart = todayStr();
+  save(); renderToday(); toast("Fresh week 💪");
+}
+function capture() {
+  const inp = document.getElementById("captureInput");
+  const v = inp.value.trim(); if (!v) return;
+  S.tasks.unshift({ id: Date.now(), title: v, bucket: "inbox", done: false });
+  inp.value = ""; save(); renderTasks(); toast("Captured 🧠 Back to it.");
+}
+document.getElementById("captureInput").addEventListener("keydown", e => { if (e.key === "Enter") capture(); });
+
+// ==================== TASKS ====================
+let taskFilter = "today";
+function renderTasks() {
+  const buckets = [["today", "Today"], ["inbox", "Inbox"], ["later", "Later"], ["done", "Done"]];
+  document.getElementById("taskFilters").innerHTML = buckets.map(([k, l]) => {
+    const n = k === "done" ? S.tasks.filter(t => t.done).length : S.tasks.filter(t => t.bucket === k && !t.done).length;
+    return `<button class="pill-btn ${taskFilter === k ? "active" : ""}" onclick="taskFilter='${k}';renderTasks()">${l} (${n})</button>`;
+  }).join("");
+  const list = taskFilter === "done" ? S.tasks.filter(t => t.done) : S.tasks.filter(t => t.bucket === taskFilter && !t.done);
+  document.getElementById("taskList").innerHTML = list.length ? list.map(t => `
+    <div class="item ${t.done ? "done" : ""}">
+      <div class="check" onclick="toggleTask(${t.id})">${t.done ? "✓" : ""}</div>
+      <div class="i-main"><div class="i-title">${esc(t.title)}</div></div>
+      <div class="i-actions">
+        ${!t.done && t.bucket !== "today" ? `<button class="btn--ghost btn" title="Move to today" onclick="moveTask(${t.id},'today')">☀️</button>` : ""}
+        ${!t.done && t.bucket === "today" ? `<button class="btn--ghost btn" title="Push to later" onclick="moveTask(${t.id},'later')">⏩</button>` : ""}
+        <button class="btn--ghost btn" title="Delete" onclick="delTask(${t.id})">🗑️</button>
+      </div>
+    </div>`).join("") : `<div class="empty">Nothing here. Lovely.</div>`;
+}
+function addTask() {
+  const inp = document.getElementById("taskInput");
+  const v = inp.value.trim(); if (!v) return;
+  S.tasks.unshift({ id: Date.now(), title: v, bucket: document.getElementById("taskBucket").value, done: false });
+  inp.value = ""; save(); renderTasks();
+}
+document.getElementById("taskInput").addEventListener("keydown", e => { if (e.key === "Enter") addTask(); });
+function toggleTask(id) { const t = S.tasks.find(x => x.id === id); t.done = !t.done; if (t.done) toast(cheers[Math.floor(Math.random() * cheers.length)]); save(); renderTasks(); renderToday(); }
+function moveTask(id, b) { S.tasks.find(x => x.id === id).bucket = b; save(); renderTasks(); renderToday(); }
+function delTask(id) { S.tasks = S.tasks.filter(x => x.id !== id); save(); renderTasks(); renderToday(); }
+
+// ==================== CONTENT ====================
+let contentFilter = "all";
+function renderContent() {
+  const types = ["all", "Memo", "Blog", "Social", "Lead Magnet"];
+  document.getElementById("contentFilters").innerHTML = types.map(t =>
+    `<button class="pill-btn ${contentFilter === t ? "active" : ""}" onclick="contentFilter='${t}';renderContent()">${t === "all" ? "All" : t}</button>`).join("");
+  const list = S.content.filter(c => contentFilter === "all" || c.type === contentFilter).sort((a, b) => a.stage - b.stage);
+  const typeChip = { "Memo": "chip--orange", "Blog": "chip--teal", "Social": "chip", "Lead Magnet": "chip--white" };
+  document.getElementById("contentList").innerHTML = list.length ? list.map(c => `
+    <div class="item">
+      <div class="i-main">
+        <div class="i-title">${esc(c.title)}</div>
+        <div class="i-meta">
+          <span class="chip ${typeChip[c.type] || "chip"}">${c.type}</span>
+          <span class="chip ${c.stage === 3 ? "chip--green" : "chip--white"}">${CONTENT_STAGES[c.stage]}</span>
+        </div>
+      </div>
+      <div class="i-actions">
+        ${c.stage > 0 ? `<button class="btn--ghost btn" onclick="moveContent(${c.id},-1)">◀️</button>` : ""}
+        ${c.stage < 3 ? `<button class="btn--ghost btn" onclick="moveContent(${c.id},1)">▶️</button>` : `<button class="btn--ghost btn" onclick="delContent(${c.id})">🗑️</button>`}
+      </div>
+    </div>`).join("") : `<div class="empty">No content here yet.</div>`;
+}
+function addContent() {
+  const inp = document.getElementById("contentInput");
+  const v = inp.value.trim(); if (!v) return;
+  S.content.unshift({ id: Date.now(), title: v, type: document.getElementById("contentType").value, stage: 0 });
+  inp.value = ""; save(); renderContent();
+}
+function moveContent(id, d) {
+  const c = S.content.find(x => x.id === id); c.stage = Math.max(0, Math.min(3, c.stage + d));
+  if (c.stage === 3) toast("Published! 🎉 Version one beats version none.");
+  save(); renderContent();
+}
+function delContent(id) { S.content = S.content.filter(x => x.id !== id); save(); renderContent(); }
+
+// ==================== LEADS ====================
+function renderLeads() {
+  const active = S.leads.filter(l => l.stage < 5);
+  const won = S.leads.filter(l => l.stage === 5).length;
+  document.getElementById("leadSummary").innerHTML =
+    `<div style="display:flex; gap:14px; flex-wrap:wrap; font-family:Gabarito; font-weight:800; color:var(--navy);">
+      <span>${active.length} in pipeline</span><span style="color:var(--green);">${won} won</span>
+    </div>`;
+  document.getElementById("leadList").innerHTML = S.leads.length ? S.leads.map(l => `
+    <div class="item">
+      <div class="i-main">
+        <div class="i-title">${esc(l.name)}</div>
+        <div class="i-meta">
+          <span class="chip ${l.stage === 5 ? "chip--green" : l.stage === 6 ? "chip--white" : "chip--teal"}">${LEAD_STAGES[l.stage]}</span>
+          <span style="font-size:0.7rem; color:var(--muted);">${l.date}</span>
+        </div>
+      </div>
+      <div class="i-actions">
+        ${l.stage > 0 && l.stage < 5 ? `<button class="btn--ghost btn" onclick="moveLead(${l.id},-1)">◀️</button>` : ""}
+        ${l.stage < 5 ? `<button class="btn--ghost btn" onclick="moveLead(${l.id},1)">▶️</button>` : ""}
+        ${l.stage < 5 ? `<button class="btn--ghost btn" title="Not now" onclick="parkLead(${l.id})">💤</button>` : ""}
+        <button class="btn--ghost btn" onclick="delLead(${l.id})">🗑️</button>
+      </div>
+    </div>`).join("") : `<div class="empty">No leads tracked yet. Every review request goes in here the day it lands.</div>`;
+}
+function addLead() {
+  const inp = document.getElementById("leadInput");
+  const v = inp.value.trim(); if (!v) return;
+  S.leads.unshift({ id: Date.now(), name: v, stage: 0, date: new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short" }) });
+  inp.value = ""; save(); renderLeads(); toast("In the pipeline 🤝");
+}
+document.getElementById("leadInput").addEventListener("keydown", e => { if (e.key === "Enter") addLead(); });
+function moveLead(id, d) {
+  const l = S.leads.find(x => x.id === id); l.stage = Math.max(0, Math.min(5, l.stage + d));
+  if (l.stage === 5) toast("WON! 🎉🎉 Go ring the bell!");
+  save(); renderLeads();
+}
+function parkLead(id) { S.leads.find(x => x.id === id).stage = 6; save(); renderLeads(); }
+function delLead(id) { if (confirm("Delete this lead?")) { S.leads = S.leads.filter(x => x.id !== id); save(); renderLeads(); } }
+
+// ==================== DATA ====================
+function exportData() {
+  const blob = new Blob([JSON.stringify(S, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `jc-brand-hq-${todayStr()}.json`;
+  a.click(); toast("Exported 💾");
+}
+function importData(ev) {
+  const f = ev.target.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try { const d = JSON.parse(r.result); if (!d.habits) throw 0; S = d; save(); renderAll(); toast("Imported ✓"); }
+    catch (e) { toast("That file doesn't look right"); }
+  };
+  r.readAsText(f);
+}
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+
+function renderAll() { renderToday(); renderTasks(); renderContent(); renderLeads(); }
+renderAll();
+</script>
+
+</body>
+</html>
